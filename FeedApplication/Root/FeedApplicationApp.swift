@@ -15,7 +15,6 @@ struct FeedApplicationApp: App {
     
     var body: some Scene {
         WindowGroup {
-            
             FeedsView()
                 .environmentObject(router)
                 .environmentObject(themeManager)
