@@ -11,7 +11,7 @@ import CoreLocation
 import Combine
 
 @MainActor
-class FeedsViewModel: ObservableObject {
+class FeedViewModel: ObservableObject {
     
     private let fetchFeedsUseCase: FetchFeedsUseCaseProtocol
     private var cancellables: Set<AnyCancellable> = []

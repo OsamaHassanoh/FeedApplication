@@ -13,7 +13,7 @@ import Combine
 struct FeedsView: View {
 //    @StateObject private var viewModel: FeedsViewModel
     @State private var selectedSectionID: String = ""
-        @StateObject private var viewModel = FeedsViewModel(
+        @StateObject private var viewModel = FeedViewModel(
             fetchFeedsUseCase: FetchFeedsUseCase(repository: FeedRepository())
         )
 
