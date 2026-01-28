@@ -42,18 +42,5 @@ class FeedsViewModel: ObservableObject {
         }
     }
     
-    // Add a method to filter the schools based on inventoryStatus
-    func filterFeeds(by section: String) {
-        if section == "discover" {
-            filteredFeeds = fetchFeeds.filter { $0.id == "discover" }
-        } else if section == "following" {
-            filteredFeeds = fetchFeeds.filter { $0.id == "following" }
-        } else if section == "trending" {
-            filteredFeeds = fetchFeeds.filter { $0.id == "trending" }
-        } else {
-            filteredFeeds = fetchFeeds // Show all schools
-        }
-    }
-    
 }
 
