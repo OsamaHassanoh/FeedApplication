@@ -13,7 +13,7 @@ struct FeedApplicationApp: App {
     @StateObject private var themeManager = ThemeManager()
     var body: some Scene {
         WindowGroup {
-            FeedsView()
+            FeedView()
                 .environmentObject(themeManager)
         }
     }
