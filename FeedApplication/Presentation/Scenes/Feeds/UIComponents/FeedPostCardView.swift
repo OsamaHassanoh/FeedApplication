@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct PostCardView: View {
+struct FeedPostCardView: View {
     @EnvironmentObject var themeManager: ThemeManager
     let postEntity: PostEntity
     var body: some View {

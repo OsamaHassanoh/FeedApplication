@@ -49,7 +49,7 @@ struct FeedsView: View {
             ScrollView {
                 LazyVStack(spacing: 24) {
                     ForEach(currentPosts) { post in
-                        PostCardView(postEntity: post)
+                        FeedPostCardView(postEntity: post)
                     }
                 }
                 .padding(.vertical)
