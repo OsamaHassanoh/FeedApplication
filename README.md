@@ -138,4 +138,44 @@ Clean Architecture in SwiftUI
 Proper DTO usage
 Scalable MVVM design
 Modern async/await patterns
-It is designed to be easy to understand, easy to extend, and production-ready.
+It is designed to be easy to understand, easy to extend, and production-ready
+
+
+
+✅ 2. SOLID Principles
+
+The project adheres to SOLID principles as follows:
+
+S — Single Responsibility Principle
+
+Views only handle UI rendering
+
+ViewModels only manage state and orchestration
+
+Use cases handle one specific business action
+
+DTOs only represent API data
+
+O — Open / Closed Principle
+
+New feed sources or features can be added without modifying existing code
+
+Repositories can be extended with new implementations
+
+L — Liskov Substitution Principle
+
+Repository implementations can be swapped without affecting consumers
+
+Mocks conform to the same protocols as real implementations
+
+I — Interface Segregation Principle
+
+Repository and use case protocols expose only required methods
+
+No unnecessary dependencies are forced on consumers
+
+D — Dependency Inversion Principle
+
+High-level modules (ViewModels, Use Cases) depend on protocols
+
+Concrete implementations are injected at runtime
