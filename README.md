@@ -142,7 +142,7 @@ It is designed to be easy to understand, easy to extend, and production-ready
 
 
 
-✅ 2. SOLID Principles
+✅ SOLID Principles
 
 The project adheres to SOLID principles as follows:
 
