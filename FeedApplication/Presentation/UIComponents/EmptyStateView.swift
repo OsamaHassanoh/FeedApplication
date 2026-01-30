@@ -10,7 +10,7 @@ import SwiftUI
 
 struct EmptyStateView: View {
     @ObservedObject var themeManager = ThemeManager()
-    let title:String
+    let title: String
     var body: some View {
         VStack {
             Spacer(minLength: 40)

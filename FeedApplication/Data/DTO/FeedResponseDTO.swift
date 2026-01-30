@@ -8,11 +8,13 @@
 import Foundation
 
 // MARK: - Root
+
 struct FeedResponseDTO: Codable {
     let data: [FeedSectionDTO]
 }
 
 // MARK: - Section
+
 struct FeedSectionDTO: Codable, Identifiable {
     let id: String
     let title: String
@@ -20,7 +22,8 @@ struct FeedSectionDTO: Codable, Identifiable {
 }
 
 // MARK: - Post
-struct PostDTO: Codable , Identifiable {
+
+struct PostDTO: Codable, Identifiable {
     let id: String
     let user: UserDTO
     let imageURL: String
@@ -43,7 +46,8 @@ struct PostDTO: Codable , Identifiable {
 }
 
 // MARK: - User
-struct UserDTO: Codable , Identifiable {
+
+struct UserDTO: Codable, Identifiable {
     let id: String
     let username: String
     let profileImageURL: String

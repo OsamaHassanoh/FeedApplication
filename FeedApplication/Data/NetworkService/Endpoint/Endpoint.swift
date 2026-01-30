@@ -8,15 +8,15 @@
 import Foundation
 
 protocol Endpoint {
-    var service: EndpointService {get set}
-    var urlPrefix: String {get set}
+    var service: EndpointService { get set }
+    var urlPrefix: String { get set }
     // var endpointVersion: Versions {get set}
-    var method: EndpointMethod {get set}
-    var auth: AuthorizationHandler {get set}
-    var parameters: [String: Any] {get set}
-    var encoding: EndpointEncoding {get set}
-    var headers: [String: String] {get set}
-   // var multipart: [MultiPartModel] {get }
+    var method: EndpointMethod { get set }
+    var auth: AuthorizationHandler { get set }
+    var parameters: [String: Any] { get set }
+    var encoding: EndpointEncoding { get set }
+    var headers: [String: String] { get set }
+    // var multipart: [MultiPartModel] {get }
 }
 
 enum EndpointEncoding {
@@ -24,8 +24,6 @@ enum EndpointEncoding {
     case query
     case customFormURLEncoded
 }
-
-
 
 enum EndpointMethod: String {
     case get
@@ -38,8 +36,6 @@ enum EndpointMethod: String {
 enum EndpointService {
     case getUserInfo
     case getFeed
-    
-    
 
     var url: String {
         switch self {
@@ -47,22 +43,18 @@ enum EndpointService {
             return "getUserInfo"
         case .getFeed:
             return "feed.json"
-       
         }
     }
+}
 
-}
-extension Endpoint {
-}
 extension EndpointService {
-    var baseUrl: String{
+    var baseUrl: String {
         switch self {
         default:
             return "https://raw.githubusercontent.com/SreelekhN/jazi-ios-machine-test-api/main/"
         }
     }
-    
+
 //    iam 64 bytes from 192.168.31.32: icmp_seq=2 ttl=241 time=12.115 ms
 //    https://iam-stg.moe.gov.sa/
 }
-

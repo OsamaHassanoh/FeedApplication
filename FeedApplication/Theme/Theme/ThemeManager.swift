@@ -5,10 +5,10 @@
 //  Created by Osama AlMekhlafi on 28/01/2026.
 //
 
-
+import Combine
 import Foundation
 import SwiftUI
-import Combine
+
 /**
  Protocol for themes
  */
@@ -23,9 +23,6 @@ protocol ThemeFonts {
     var captionTxtFont: Font { get }
     var smalBodyTextFont: Font { get }
     var smalestBodyTextFont: Font { get }
-
-
-
 }
 
 protocol ThemeColors {
@@ -39,13 +36,10 @@ protocol ThemeColors {
     var textBoxColor: Color { get }
     var ButtonBg: Color { get }
     var likedBg: Color { get }
-    
 }
-
 
 class ThemeManager: ObservableObject {
     @Published var selectedTheme: Theme = MainTheme()
-
 
     func setTheme(_ theme: Theme) {
         selectedTheme = theme
@@ -56,16 +50,16 @@ class ThemeManager: ObservableObject {
     }
 }
 
-
 // MARK: - Theme Protocol
+
 protocol Theme {
     var fonts: ThemeFonts { get }
     var colors: ThemeColors { get }
 }
 
 // MARK: - Theme Implementation (Main Theme)
+
 struct MainTheme: Theme {
-    
     struct Fonts: ThemeFonts {
         var largeTitleFont: Font = .custom("NotoKufiArabic-ExtraBold", size: 30)
         var textTitleFont: Font = .custom("NotoKufiArabic-ExtraBold", size: 24)
@@ -76,30 +70,60 @@ struct MainTheme: Theme {
         var mediumBodyTextFont: Font = .custom("NotoKufiArabic-SemiBold", size: 14)
         var captionTxtFont: Font = .custom("NotoKufiArabic-SemiBold", size: 20)
         var smalBodyTextFont: Font = .custom("NotoKufiArabic-Light", size: 16)
-        var smalestBodyTextFont:  Font = .custom("NotoKufiArabic-Light", size: 14)
+        var smalestBodyTextFont: Font = .custom("NotoKufiArabic-Light", size: 14)
     }
 
     struct Colors: ThemeColors {
-        var primaryThemeColor: Color { Color("PrimaryThemeColor") }
-        var secondaryThemeColor: Color { Color("mnSecondaryThemeColor") }
-        var reviewsThemeColor: Color { Color("ReviewsThemeColor") }
-        var editThemeColor: Color { Color("EditThemeColor") }
-        var negativeBtnTitleColor: Color { Color("mnNegativeBtnTitleColor") }
-        var titleTextColor: Color { Color("mntitleTextColor") }
-        var bodyTextColor: Color { Color("mnBodyTextColor") }
-        var textBoxColor: Color { Color("mnTextBoxColor") }
-        var imageTntColor: Color {Color("ImageTnt")}
-        var ButtonBg: Color {Color("ButtonTnt")}
-        var likedBg: Color {Color("likedBg")}
-        
+        var primaryThemeColor: Color {
+            Color("PrimaryThemeColor")
+        }
+
+        var secondaryThemeColor: Color {
+            Color("mnSecondaryThemeColor")
+        }
+
+        var reviewsThemeColor: Color {
+            Color("ReviewsThemeColor")
+        }
+
+        var editThemeColor: Color {
+            Color("EditThemeColor")
+        }
+
+        var negativeBtnTitleColor: Color {
+            Color("mnNegativeBtnTitleColor")
+        }
+
+        var titleTextColor: Color {
+            Color("mntitleTextColor")
+        }
+
+        var bodyTextColor: Color {
+            Color("mnBodyTextColor")
+        }
+
+        var textBoxColor: Color {
+            Color("mnTextBoxColor")
+        }
+
+        var imageTntColor: Color {
+            Color("ImageTnt")
+        }
+
+        var ButtonBg: Color {
+            Color("ButtonTnt")
+        }
+
+        var likedBg: Color {
+            Color("likedBg")
+        }
     }
-    
+
     var fonts: ThemeFonts = Fonts()
     var colors: ThemeColors = Colors()
 }
 
 struct DarkTheme: Theme {
-    
     struct Fonts: ThemeFonts {
         var largeTitleFont: Font = .custom("NotoKufiArabic-ExtraBold", size: 30)
         var textTitleFont: Font = .custom("NotoKufiArabic-ExtraBold", size: 24)
@@ -110,22 +134,52 @@ struct DarkTheme: Theme {
         var mediumBodyTextFont: Font = .custom("NotoKufiArabic-SemiBold", size: 14)
         var captionTxtFont: Font = .custom("NotoKufiArabic-SemiBold", size: 20)
         var smalBodyTextFont: Font = .custom("NotoKufiArabic-Light", size: 16)
-        var smalestBodyTextFont:  Font = .custom("NotoKufiArabic-Light", size: 14)
+        var smalestBodyTextFont: Font = .custom("NotoKufiArabic-Light", size: 14)
     }
 
     struct Colors: ThemeColors {
-        var primaryThemeColor: Color { Color("mnPrimaryThemeColor") }
-        var secondaryThemeColor: Color { Color("mnSecondaryThemeColor") }
-        var reviewsThemeColor: Color { Color("ReviewsThemeColor") }
-        var editThemeColor: Color { Color("EditThemeColor") }
-        var negativeBtnTitleColor: Color { Color("mnNegativeBtnTitleColor") }
-        var titleTextColor: Color { Color("mntitleTextColor") }
-        var bodyTextColor: Color  {(Color.black)} //{ Color("mnBodyTextColor") }
-        var textBoxColor: Color { Color("mnTextBoxColor") }
-        var imageTntColor: Color {Color("ImageTnt")}
-        var ButtonBg: Color {Color("ButtonTnt")}
-        var likedBg: Color {Color("likedBg")}
-        
+        var primaryThemeColor: Color {
+            Color("mnPrimaryThemeColor")
+        }
+
+        var secondaryThemeColor: Color {
+            Color("mnSecondaryThemeColor")
+        }
+
+        var reviewsThemeColor: Color {
+            Color("ReviewsThemeColor")
+        }
+
+        var editThemeColor: Color {
+            Color("EditThemeColor")
+        }
+
+        var negativeBtnTitleColor: Color {
+            Color("mnNegativeBtnTitleColor")
+        }
+
+        var titleTextColor: Color {
+            Color("mntitleTextColor")
+        }
+
+        var bodyTextColor: Color {
+            Color.black
+        } // { Color("mnBodyTextColor") }
+        var textBoxColor: Color {
+            Color("mnTextBoxColor")
+        }
+
+        var imageTntColor: Color {
+            Color("ImageTnt")
+        }
+
+        var ButtonBg: Color {
+            Color("ButtonTnt")
+        }
+
+        var likedBg: Color {
+            Color("likedBg")
+        }
     }
 
     var fonts: ThemeFonts = Fonts()

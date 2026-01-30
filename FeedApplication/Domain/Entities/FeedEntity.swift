@@ -7,14 +7,13 @@
 
 import Foundation
 
-
-struct FeedSectionEntity : Identifiable {
+struct FeedSectionEntity: Identifiable {
     let id: String
     let title: String
     let posts: [PostEntity]
 }
 
-struct PostEntity : Identifiable {
+struct PostEntity: Identifiable {
     let id: String
     let user: UserEntity
     let imageURL: URL
@@ -25,7 +24,7 @@ struct PostEntity : Identifiable {
     let createdAt: Date
 }
 
-struct UserEntity : Identifiable {
+struct UserEntity: Identifiable {
     let id: String
     let username: String
     let profileImageURL: URL

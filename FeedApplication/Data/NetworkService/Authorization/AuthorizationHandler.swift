@@ -7,12 +7,9 @@
 
 import Foundation
 
-
 protocol AuthorizationHandler {
     var tokenHeader: [String: String] { get }
     var clientHeader: [String: String] { get }
     func setAuthManually(authToken: String)
     func setUidManually(uid: String)
-    
 }
-

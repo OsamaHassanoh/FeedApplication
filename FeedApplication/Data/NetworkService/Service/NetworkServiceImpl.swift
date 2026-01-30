@@ -6,8 +6,8 @@
 //
 
 import Foundation
-import SwiftUI
 import Network
+import SwiftUI
 
 protocol EndpointExecuter {
     func execute(_ endpoint: Endpoint) async throws -> NetworkServiceResponse
@@ -18,16 +18,15 @@ protocol ReachabilityProtocol {
 }
 
 class NetworkServiceImpl: Network {
-    
     static let shared = NetworkServiceImpl()
     private init() {} // Singleton
-    
+
     var endpointExecuter: EndpointExecuter = NetworkService()
     var reachability: ReachabilityProtocol = NetworkReachabilityManager.shared // << Use the SwiftUI reachability
-    
+
     func callModel<Model: Codable>(endpoint: Endpoint) async throws -> Model {
         do {
-            let data = try await self.call(endpoint: endpoint)
+            let data = try await call(endpoint: endpoint)
             return try JSONDecoder().decode(Model.self, from: data)
         } catch let error as ServerError {
             if error.status == 401 {
@@ -65,7 +64,7 @@ class NetworkServiceImpl: Network {
             } catch {
                 attempts += 1
                 AppState.shared.log("🌐 General call retry (unknown error): attempt \(attempts) failed — \(error.localizedDescription)")
-                
+
                 if attempts == maxAttempts {
                     AppState.shared.log("❌ Network call failed after \(maxAttempts) attempts.")
                     throw error
@@ -80,7 +79,7 @@ class NetworkServiceImpl: Network {
         var attempts = 0
         while attempts < maxAttempts {
             do {
-                let data = try await self.call(endpoint: endpoint)
+                let data = try await call(endpoint: endpoint)
                 return try JSONDecoder().decode(Model.self, from: data)
             } catch {
                 attempts += 1
@@ -102,13 +101,13 @@ class NetworkServiceImpl: Network {
         } catch let error as ServerError {
             throw error
         } catch {
-            throw (error is ServerError) ? ServerError() : self.networkFail()
+            throw (error is ServerError) ? ServerError() : networkFail()
         }
     }
 
     private func processResponse(_ response: NetworkServiceResponse) throws -> Data {
         do {
-            return try self.networkSuccess(data: response.data, statusCode: response.statusCode)
+            return try networkSuccess(data: response.data, statusCode: response.statusCode)
         } catch {
             throw error
         }
@@ -116,7 +115,7 @@ class NetworkServiceImpl: Network {
 
     private func networkSuccess(data: Data, statusCode: Int?) throws -> Data {
         AppState.shared.log("⬆️⬆️ Status Code : \(String(describing: statusCode ?? 0))")
-        if (200...299).contains(statusCode ?? 0) {
+        if (200 ... 299).contains(statusCode ?? 0) {
             return data
         } else {
             guard let error = try? JSONDecoder().decode(ServerError.self, from: data) else {
@@ -126,8 +125,7 @@ class NetworkServiceImpl: Network {
         }
     }
 
-    private func saveHeaders(_ header: HeaderResponse) {
-    }
+    private func saveHeaders(_: HeaderResponse) {}
 
     private func networkFail() -> Error {
         return isConnectedToInternet ? FailToCallNetworkError() : NoInternetConnectionError()
@@ -144,7 +142,6 @@ struct NetworkServiceResponse {
     var headers: [AnyHashable: Any]?
 }
 
-
 struct HeaderResponse: Codable {
     var token: String?
     var client: String?
@@ -155,4 +152,3 @@ struct HeaderResponse: Codable {
         case client, uid
     }
 }
-

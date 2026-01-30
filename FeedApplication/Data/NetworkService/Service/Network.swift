@@ -8,7 +8,5 @@
 import Foundation
 
 protocol Network {
-    func callModel<Model: Codable>( endpoint: Endpoint) async throws -> Model
-
+    func callModel<Model: Codable>(endpoint: Endpoint) async throws -> Model
 }
-

@@ -1,22 +1,19 @@
 //
-//  FeedsView.swift
+//  FeedView.swift
 //  FeedApplication
 //
 //  Created by Osama AlMekhlafi on 28/01/2026.
 //
 
-
-
-import SwiftUI
 import Combine
+import SwiftUI
 
 struct FeedView: View {
 //    @StateObject private var viewModel: FeedsViewModel
     @State private var selectedSectionID: String = ""
-        @StateObject private var viewModel = FeedViewModel(
-            fetchFeedsUseCase: FetchFeedsUseCase(repository: FeedRepository())
-        )
-
+    @StateObject private var viewModel = FeedViewModel(
+        fetchFeedsUseCase: FetchFeedsUseCase(repository: FeedRepository())
+    )
     var body: some View {
         VStack {
             switch viewModel.state {
@@ -47,7 +44,7 @@ struct FeedView: View {
             Divider()
 
             ScrollView {
-                LazyVStack(spacing: 24) {
+                LazyVStack(spacing: 16) {
                     ForEach(currentPosts) { post in
                         FeedPostCardView(postEntity: post)
                     }
@@ -65,14 +62,12 @@ struct FeedView: View {
     private var currentPosts: [PostEntity] {
         viewModel.filteredFeeds.first(where: { $0.id == selectedSectionID })?.posts ?? []
     }
-    
-    private func onAppear() {
-            guard viewModel.fetchFeeds.isEmpty else { return }
-    
-            Task {
-                await viewModel.fetchGetAssignSchools()
-               
-            }
-        }
-}
 
+    private func onAppear() {
+        guard viewModel.fetchFeeds.isEmpty else { return }
+
+        Task {
+            await viewModel.fetchGetAssignSchools()
+        }
+    }
+}

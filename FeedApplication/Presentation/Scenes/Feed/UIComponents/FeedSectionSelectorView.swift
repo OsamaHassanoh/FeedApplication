@@ -5,7 +5,6 @@
 //  Created by Osama AlMekhlafi on 28/01/2026.
 //
 
-
 import SwiftUI
 
 struct FeedSectionSelectorView: View {
@@ -31,14 +30,14 @@ struct FeedSectionSelectorView: View {
                                 Capsule()
                                     .fill(
                                         selectedSectionID == section.id
-                                        ? themeManager.selectedTheme.colors.primaryThemeColor
-                                        : themeManager.selectedTheme.colors.secondaryThemeColor //Color.gray.opacity(0.2)
+                                            ? themeManager.selectedTheme.colors.primaryThemeColor
+                                            : themeManager.selectedTheme.colors.secondaryThemeColor // Color.gray.opacity(0.2)
                                     )
                             )
                             .foregroundColor(
                                 selectedSectionID == section.id
-                                ? .white
-                                : .primary
+                                    ? .white
+                                    : .primary
                             )
                     }
                 }

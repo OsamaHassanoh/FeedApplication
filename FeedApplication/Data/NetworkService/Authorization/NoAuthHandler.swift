@@ -6,11 +6,17 @@
 //
 
 import Foundation
+
 class NoAuthHandler: AuthorizationHandler {
-    func setAuthManually(authToken: String) {
+    func setAuthManually(authToken _: String) {}
+
+    func setUidManually(uid _: String) {}
+
+    var tokenHeader: [String: String] {
+        [:]
     }
-    func setUidManually(uid: String) {
+
+    var clientHeader: [String: String] {
+        [:]
     }
-    var tokenHeader: [String: String] { [:] }
-      var clientHeader: [String: String] { [:] }
 }

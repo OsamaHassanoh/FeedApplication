@@ -8,6 +8,5 @@
 import Foundation
 
 protocol FeedRepoProtocol {
-    func fetchFeeds() async throws -> [FeedSectionEntity] 
+    func fetchFeeds() async throws -> [FeedSectionEntity]
 }
-

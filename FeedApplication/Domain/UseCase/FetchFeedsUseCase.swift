@@ -8,7 +8,7 @@
 import SwiftUI
 
 protocol FetchFeedsUseCaseProtocol {
-    func fetchFeeds() async throws  -> [FeedSectionEntity]
+    func fetchFeeds() async throws -> [FeedSectionEntity]
 }
 
 class FetchFeedsUseCase: FetchFeedsUseCaseProtocol {
@@ -16,7 +16,8 @@ class FetchFeedsUseCase: FetchFeedsUseCaseProtocol {
     init(repository: FeedRepoProtocol) {
         self.repository = repository
     }
-    func fetchFeeds() async throws ->  [FeedSectionEntity]  {
+
+    func fetchFeeds() async throws -> [FeedSectionEntity] {
         return try await repository.fetchFeeds()
     }
 }

@@ -7,9 +7,7 @@
 
 import Foundation
 
-
-struct FeedMapper {
-
+enum FeedMapper {
     static func map(_ dto: FeedResponseDTO) -> [FeedSectionEntity] {
         dto.data.map { section in
             FeedSectionEntity(

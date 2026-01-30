@@ -8,32 +8,31 @@
 import Foundation
 
 struct ServerError: Codable, Error, LocalizedError {
-
     var error: ErrorValue?
     var message: String? = ""
     var status: Int?
-    var rawData: Data?  // 🔹 added raw data for debugging or re-parsing if needed
+    var rawData: Data? // 🔹 added raw data for debugging or re-parsing if needed
 
     init(message: String = "Something went wrong, please try again later", status: Int = 200) {
         self.message = message
         self.status = status
-        self.rawData = nil
+        rawData = nil
     }
 
     init(status: Int, data: Data?) {
         self.status = status
-        self.rawData = data
+        rawData = data
 
         if let data = data {
             // Try to decode error from server response
             if let decoded = try? JSONDecoder().decode(ServerError.self, from: data) {
-                self.error = decoded.error
-                self.message = decoded.message
+                error = decoded.error
+                message = decoded.message
             } else {
-                self.message = "Something went wrong, please try again later"
+                message = "Something went wrong, please try again later"
             }
         } else {
-            self.message = "No error data from server"
+            message = "No error data from server"
         }
     }
 
@@ -45,10 +44,10 @@ struct ServerError: Codable, Error, LocalizedError {
             let container = try decoder.singleValueContainer()
 
             if let x = try? container.decode(String.self) {
-                self.errorAsString = x
+                errorAsString = x
                 return
             } else if let x = try? container.decode([String].self) {
-                self.errorAsList = x
+                errorAsList = x
                 return
             }
 
@@ -59,7 +58,7 @@ struct ServerError: Codable, Error, LocalizedError {
         }
     }
 
-    public var errorDescription: String? {
+    var errorDescription: String? {
         if let stringError = error?.errorAsString, !stringError.isEmpty {
             return stringError
         }
@@ -83,4 +82,3 @@ struct NoInternetConnectionError: Error, LocalizedError {
         return "No internet connection. Please check your network settings."
     }
 }
-

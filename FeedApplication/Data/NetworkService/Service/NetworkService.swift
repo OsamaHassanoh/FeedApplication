@@ -8,7 +8,6 @@
 import Foundation
 
 class NetworkService: EndpointExecuter {
-
     private let session: URLSession = {
         let configuration = URLSessionConfiguration.default
         configuration.requestCachePolicy = .reloadIgnoringLocalCacheData
@@ -35,7 +34,7 @@ class NetworkService: EndpointExecuter {
                 let responseData = data ?? Data()
 
                 // Handle success manually
-                if (200...299).contains(statusCode) {
+                if (200 ... 299).contains(statusCode) {
                     let networkResponse = NetworkServiceResponse(
                         data: responseData,
                         statusCode: statusCode,
@@ -57,7 +56,7 @@ class NetworkService: EndpointExecuter {
         AppState.shared.log("ℹ️ Method : \(endpoint.method.rawValue)")
         AppState.shared.log("ℹ️ Parameters : \(endpoint.parameters)")
         AppState.shared.log("ℹ️ Headers : \(endpoint.headers)")
-        
+
         let fullUrlString = endpoint.service.baseUrl + endpoint.service.url + endpoint.urlPrefix
         var urlComponents = URLComponents(string: fullUrlString)
 
@@ -99,7 +98,6 @@ class NetworkService: EndpointExecuter {
         return request
     }
 
-
     private func concatenateHeaders(for endpoint: Endpoint) -> [String: String] {
         var headers = endpoint.headers.filter { !$0.value.isEmpty }
 
@@ -130,4 +128,3 @@ enum RequestError: Error {
     case invalidParameter(String)
     case invalidResponse
 }
-
