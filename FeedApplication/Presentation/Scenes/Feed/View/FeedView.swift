@@ -5,74 +5,6 @@
 //  Created by Osama AlMekhlafi on 28/01/2026.
 //
 
-//import Combine
-//import SwiftUI
-//
-//struct FeedView: View {
-////    @StateObject private var viewModel: FeedsViewModel
-//    @State private var selectedSectionID: String = ""
-//    @StateObject private var viewModel = FeedViewModel(
-//        fetchFeedsUseCase: FetchFeedsUseCase(repository: FeedRepository())
-//    )
-//    var body: some View {
-//        VStack {
-//            switch viewModel.state {
-//            case .loading:
-//                LoadingView()
-//
-//            case .error:
-//                Text(viewModel.errorMessage ?? "Something went wrong")
-//
-//            case .loaded:
-//                content
-//            }
-//        }
-//        .onAppear {
-//            onAppear()
-//        }
-//    }
-//
-//    private var content: some View {
-//        VStack(spacing: 0) {
-//            FeedSectionSelectorView(
-//                feedSectionEntity: viewModel.filteredFeeds,
-//                selectedSectionID: selectedSectionID
-//            ) { id in
-//                selectedSectionID = id
-//            }
-//
-//            Divider()
-//
-//            ScrollView {
-//                LazyVStack(spacing: 16) {
-//                    ForEach(currentPosts) { post in
-//                        FeedPostCardView(postEntity: post)
-//                    }
-//                }
-//                .padding(.vertical)
-//            }
-//        }
-//        .onAppear {
-//            if selectedSectionID.isEmpty {
-//                selectedSectionID = viewModel.filteredFeeds.first?.id ?? ""
-//            }
-//        }
-//    }
-//
-//    private var currentPosts: [PostEntity] {
-//        viewModel.filteredFeeds.first(where: { $0.id == selectedSectionID })?.posts ?? []
-//    }
-//
-//    private func onAppear() {
-//        guard viewModel.fetchFeeds.isEmpty else { return }
-//
-//        Task {
-//            await viewModel.fetchGetAssignSchools()
-//        }
-//    }
-//}
-
-
 import Combine
 import SwiftUI
 
@@ -81,9 +13,8 @@ struct FeedView: View {
     @StateObject private var viewModel = FeedViewModel(
         fetchFeedsUseCase: FetchFeedsUseCase(repository: FeedRepository())
     )
-    
     var body: some View {
-        NavigationView {
+        NavigationView {   // NavigationStack (Recommended) but from iOS Version (iOS 16+) and this app from (iOS 16+) 
             VStack {
                 switch viewModel.state {
                 case .loading:
