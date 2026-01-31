@@ -4,7 +4,6 @@
 //
 //  Created by Osama AlMekhlafi on 28/01/2026.
 //
-
 import Foundation
 
 protocol Endpoint {
@@ -54,7 +53,4 @@ extension EndpointService {
             return "https://raw.githubusercontent.com/SreelekhN/jazi-ios-machine-test-api/main/"
         }
     }
-
-//    iam 64 bytes from 192.168.31.32: icmp_seq=2 ttl=241 time=12.115 ms
-//    https://iam-stg.moe.gov.sa/
 }
