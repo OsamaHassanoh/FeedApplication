@@ -4,25 +4,30 @@
 //
 //  Created by Osama AlMekhlafi on 28/01/2026.
 //
-
-import Combine
 import SwiftUI
+import Combine
 
 struct FeedView: View {
+    @StateObject private var viewModel: FeedViewModel
     @State private var selectedSectionID: String = ""
-    @StateObject private var viewModel = FeedViewModel(
-        fetchFeedsUseCase: FetchFeedsUseCase(repository: FeedRepository())
-    )
+    
+    // ✅ Dependency Injection
+    init(viewModel: FeedViewModel = DIContainer.shared.makeFeedViewModel()) {
+        _viewModel = StateObject(wrappedValue: viewModel)
+    }
+    
     var body: some View {
-        NavigationView {   // NavigationStack (Recommended) but from iOS Version (iOS 16+) and this app from (iOS 16+) 
+        NavigationView {  
             VStack {
                 switch viewModel.state {
                 case .loading:
                     LoadingView()
-
                 case .error:
-                    Text(viewModel.errorMessage ?? "Something went wrong")
-
+                    ErrorView(
+                        message: viewModel.errorMessage ?? "Something went wrong",
+                        retry: { Task { await viewModel.loadFeeds() } }
+                    )
+                    
                 case .loaded:
                     content
                 }
@@ -30,22 +35,24 @@ struct FeedView: View {
             .navigationTitle("Feed")
             .navigationBarTitleDisplayMode(.large)
         }
-        .onAppear {
-            onAppear()
+        .task {
+            if viewModel.feeds.isEmpty {
+                await viewModel.loadFeeds()
+            }
         }
     }
-
+    
     private var content: some View {
         VStack(spacing: 0) {
             FeedSectionSelectorView(
-                feedSectionEntity: viewModel.filteredFeeds,
+                feedSectionEntity: viewModel.feeds,
                 selectedSectionID: selectedSectionID
             ) { id in
                 selectedSectionID = id
             }
-
+            
             Divider()
-
+            
             ScrollView {
                 LazyVStack(spacing: 16) {
                     ForEach(currentPosts) { post in
@@ -57,20 +64,33 @@ struct FeedView: View {
         }
         .onAppear {
             if selectedSectionID.isEmpty {
-                selectedSectionID = viewModel.filteredFeeds.first?.id ?? ""
+                selectedSectionID = viewModel.feeds.first?.id ?? ""
             }
         }
     }
-
+    
     private var currentPosts: [PostEntity] {
-        viewModel.filteredFeeds.first(where: { $0.id == selectedSectionID })?.posts ?? []
+        viewModel.feeds.first(where: { $0.id == selectedSectionID })?.posts ?? []
     }
+}
 
-    private func onAppear() {
-        guard viewModel.fetchFeeds.isEmpty else { return }
-
-        Task {
-            await viewModel.fetchGetAssignSchools()
+// MARK: - Error View
+struct ErrorView: View {
+    let message: String
+    let retry: () -> Void
+    
+    var body: some View {
+        VStack(spacing: 16) {
+            Image(systemName: "exclamationmark.triangle")
+                .font(.system(size: 50))
+                .foregroundColor(.red)
+            
+            Text(message)
+                .multilineTextAlignment(.center)
+            
+            Button("Retry", action: retry)
+                .buttonStyle(.bordered)
         }
+        .padding()
     }
 }

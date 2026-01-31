@@ -11,7 +11,7 @@ protocol FetchFeedsUseCaseProtocol {
     func fetchFeeds() async throws -> [FeedSectionEntity]
 }
 
-class FetchFeedsUseCase: FetchFeedsUseCaseProtocol {
+final class FetchFeedsUseCase: FetchFeedsUseCaseProtocol {
     private let repository: FeedRepoProtocol
     init(repository: FeedRepoProtocol) {
         self.repository = repository

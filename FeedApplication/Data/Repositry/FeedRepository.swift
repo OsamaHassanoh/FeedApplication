@@ -7,24 +7,17 @@
 
 import Foundation
 
-class FeedRepository: FeedRepoProtocol {
+final class FeedRepository: FeedRepoProtocol {
     private let network: Network
-    init(network: Network = NetworkServiceImpl.shared) {
+    
+    init(network: Network) {
         self.network = network
     }
-
+    
     func fetchFeeds() async throws -> [FeedSectionEntity] {
-        let dto: FeedResponseDTO = try await network.callModel(endpoint: FetchFeedEndPoint())
+        let dto: FeedResponseDTO = try await network.callModel(
+            endpoint: FetchFeedEndPoint()
+        )
         return FeedMapper.map(dto)
     }
 }
-
-//    func fetchFeeds() async throws -> [FeedSection] {
-//
-//
-//        let dto = try await network.callModel(endpoint: FetchFeedEndPoint())
-//
-//
-//        return FeedMapper.map(dto)
-//       }
-// }
